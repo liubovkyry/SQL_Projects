@@ -37,6 +37,13 @@ What is the average amount of debt owed by countries across different debt indic
 
 The first line of code connects us to the international_debt database where the table international_debt is residing. Let's first SELECT all of the columns from the international_debt table. Also, we'll limit the output to the first ten rows to keep the output clean.
 
+#### Task 1: Instructions
+Inspect the international debt data.
+
+ - Read the line of code provided for you, which connects you to the international_debt database.
+ - <code>Select</code> <i>all</i> of the columns <code>from</code> the international_debt table and <code>limit</code> the output to the first 10 rows.
+
+
 ```
 %%sql
 postgresql:///international_debt
@@ -52,11 +59,11 @@ From the first ten rows, we can see the amount of debt owed by Afghanistan in th
 
 Without a count of unique countries, we will not be able to perform our statistical analyses holistically. In this section, we are going to extract the number of unique countries present in the table.
 
-Task 2: Instructions
+#### Task 2: Instructions
 Find the number of distinct countries.
 
-Use the DISTINCT clause and the COUNT() function in pair on the country_name column.
-Alias the resulting column as total_distinct_countries.
+ - Use the <code>DISTINCT</code> clause and the <code>COUNT()</code> function in pair on the country_name column.
+ - <i>Alias</i> the resulting column as total_distinct_countries.
 
 ```
 SELECT COUNT(DISTINCT country_name)
@@ -69,12 +76,12 @@ FROM international_debt;
 ### 3. Finding out the distinct debt indicators
 We can see there are a total of 124 countries present on the table. As we saw in the first section, there is a column called indicator_name that briefly specifies the purpose of taking the debt. Just beside that column, there is another column called indicator_code which symbolizes the category of these debts. Knowing about these various debt indicators will help us to understand the areas in which a country can possibly be indebted to.
 
-Task 3: Instructions
+#### Task 3: Instructions
 Extract the unique debt indicators in the table.
 
-Use the DISTINCT clause on the indicator_code column.
-Alias the resulting column as distinct_debt_indicators.
-Order the results by distinct_debt_indicators
+ - Use the <code>DISTINCT</code> clause on the indicator_code column.
+ - <i>Alias</i> the resulting column as distinct_debt_indicators.
+ - <i>Order</i> the results <i>by</i> distinct_debt_indicators
 
 ```
 SELECT DISTINCT indicator_code
@@ -89,11 +96,11 @@ As mentioned earlier, the financial debt of a particular country represents its 
 
 Let's switch gears from the debt indicators now and find out the total amount of debt (in USD) that is owed by the different countries. This will give us a sense of how the overall economy of the entire world is holding up.
 
-Task 4: Instructions
+#### Task 4: Instructions
 Find out the total amount of debt as reflected in the table.
 
-Use the built-in SUM function on the debt column, then divide it by 1000000 and round the result to 2 decimal places so that the output is fathomable.
-Alias the resulting column as total_debt.
+ - Use the built-in <code>SUM</code> function on the debt column, then <U>divide</u> it by 1000000 and <i>round</i> the result to 2 decimal places so that the output is fathomable.
+ - <i>Alias</i> the resulting column as total_debt.
 
 ```
 SELECT ROUND(SUM(debt)/1000000, 2) AS total_debt
@@ -107,13 +114,13 @@ FROM international_debt;
 
 Now that we have the exact total of the amounts of debt owed by several countries, let's now find out the country that owns the highest amount of debt along with the amount. Note that this debt is the sum of different debts owed by a country across several categories. This will help to understand more about the country in terms of its socio-economic scenarios. We can also find out the category in which the country owns its highest debt. But we will leave that for now.
 
-Task 5: Instructions
+#### Task 5: Instructions
 Find out the country owing to the highest debt.
 
-Select the country_name and debt columns, then apply the SUM function on the debt column.
-Alias the column resulted from the summation as total_debt.
-GROUP the results BY country_name and ORDER them BY the new alias total_debt in a descending manner.
-LIMIT the number of rows to be one.
+ - Select the country_name and debt columns, then apply the <code>SUM</code> function on the debt column.
+ - <i>Alias</i> the column resulted from the summation as total_debt.
+ - <code>GROUP</code> the results <code>BY</code> country_name and <code>ORDER</code> them <code>BY</code> the new alias total_debt in a descending manner.
+ - <code>LIMIT</code> the number of rows to be one.
 
 ```
 SELECT country_name, 
@@ -131,13 +138,13 @@ So, it was China. A more in-depth breakdown of China's debts can be found here.
 
 We now have a brief overview of the dataset and a few of its summary statistics. We already have an idea of the different debt indicators in which the countries owe their debts. We can dig even further to find out on an average how much debt a country owes? This will give us a better sense of the distribution of the amount of debt across different indicators.
 
-Task 6: Instructions
+#### Task 6: Instructions
 Determine the average amount of debt owed across the categories.
 
-Select indicator_code aliased as debt_indicator, then select indicator_name and debt.
-Apply an aggregate function on the debt column to average out its values and alias it as average_debt.
-Group the results by the newly created debt_indicator and already present indicator_name columns.
-Sort the output with respect to the average_debt column in a descending manner and limit the results to ten.
+ - Select indicator_code <i>aliased</i> as debt_indicator, then select indicator_name and debt.
+ - Apply an aggregate function  on the debt column to <i>average</i> out its values and <i>alias</i> it as average_debt.
+ - <i>Group</i> the results by the newly created debt_indicator and already present indicator_name columns.
+ - Sort the output with respect to the average_debt column in a <i>descending</i> manner and <i>limit</i> the results to ten.
 
 ```
 SELECT indicator_code AS debt_indicator,
@@ -156,11 +163,11 @@ An interesting observation in the above finding is that there is a huge differen
 
 We can investigate this a bit more so as to find out which country owes the highest amount of debt in the category of long term debts (DT.AMT.DLXF.CD). Since not all the countries suffer from the same kind of economic disturbances, this finding will allow us to understand that particular country's economic condition a bit more specifically.
 
-Task 7: Instructions
+#### Task 7: Instructions
 Find out the country with the highest amount of principal repayments.
 
-Select the country_name and indicator_name columns.
-Add a WHERE clause to filter out the maximum debt in DT.AMT.DLXF.CD category.
+ - Select the country_name and indicator_name columns.
+ - Add a <code>WHERE</code> clause to filter out the <i>maximum</i> debt in DT.AMT.DLXF.CD category.
 
 ```
 SELECT country_name,
@@ -178,12 +185,12 @@ China has the highest amount of debt in the long-term debt (DT.AMT.DLXF.CD) cate
 
 We saw that long-term debt is the topmost category when it comes to the average amount of debt. But is it the most common indicator in which the countries owe their debt? Let's find that out.
 
-Task 8: Instructions
+#### Task 8: Instructions
 Find out the debt indicator that appears most frequently.
 
-Select the indicator_code column, then separately apply an aggregate function to count its values. Alias the column resulting from the counting as indicator_count.
-Group the results by indicator_code and order them first by the newly created indicator_count column then the indicator_code column, both in a descending manner.
-Limit the resulting number of rows to 20.
+ - Select the indicator_code column, then separately apply an aggregate function to <code>COUNT</code> its values. <i>Alias</i> the column resulting from the counting as indicator_count.
+ - <i>Group</i> the results by indicator_code and <i>order</i> them first by the newly created indicator_count column then the indicator_code column, both in a <i>descending</i> manner.
+ - Limit the resulting number of rows to 20.
 
 ```
 SELECT 
@@ -203,13 +210,13 @@ Let's change tracks from debt_indicators now and focus on the amount of debt aga
 
 In this notebook, we took a look at debt owed by countries across the globe. We extracted a few summary statistics from the data and unraveled some interesting facts and figures. We also validated our findings to make sure the investigations are correct.
 
-Task 9: Instructions
+#### Task 9: Instructions
 Get the maximum amount of debt that each country owes.
 
-Select the country_name and apply an aggregate function to take the maximum of debt. Alias the aggregate column as maximum_debt.
-Group the results by country_name.
-Order the results by maximum_debt in descending order.
-Limit the output to 10 rows.
+ - <i>Select</i> the country_name and apply an aggregate function to take the <i>maximum</i> of debt. Alias the aggregate column as maximum_debt.
+ - <i>Group</i> the results by country_name.
+ - <i>Order</i> the results by maximum_debt in <i>descending</i> order.
+ - <i>Limit</i> the output to 10 rows.
 ```
 SELECT country_name, MAX(debt) AS maximum_debt
 FROM international_debt
