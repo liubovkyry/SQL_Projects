@@ -51,6 +51,8 @@ LIMIT 10;
 From the first ten rows, we can see the amount of debt owed by Afghanistan in the different debt indicators. But we do not know the number of different countries we have on the table. There are repetitions in the country names because a country is most likely to have debt in more than one debt indicator.
 
 Without a count of unique countries, we will not be able to perform our statistical analyses holistically. In this section, we are going to extract the number of unique countries present in the table.
+
+Task 2: Instructions
 Find the number of distinct countries.
 
 Use the DISTINCT clause and the COUNT() function in pair on the country_name column.
@@ -66,5 +68,32 @@ FROM international_debt;
 
 ### 3. Finding out the distinct debt indicators
 We can see there are a total of 124 countries present on the table. As we saw in the first section, there is a column called indicator_name that briefly specifies the purpose of taking the debt. Just beside that column, there is another column called indicator_code which symbolizes the category of these debts. Knowing about these various debt indicators will help us to understand the areas in which a country can possibly be indebted to.
+
+Task 3: Instructions
+Extract the unique debt indicators in the table.
+
+Use the DISTINCT clause on the indicator_code column.
+Alias the resulting column as distinct_debt_indicators.
+Order the results by distinct_debt_indicators
+
+```
+SELECT DISTINCT indicator_code
+AS distinct_debt_indicators
+FROM international_debt
+ORDER BY distinct_debt_indicators;
+```
+![image](https://user-images.githubusercontent.com/118057504/218067426-7b978b4e-a948-4761-9569-40fc94c38864.png)
+
+### 4. Totaling the amount of debt owed by the countries
+As mentioned earlier, the financial debt of a particular country represents its economic state. But if we were to project this on an overall global scale, how will we approach it?
+
+Let's switch gears from the debt indicators now and find out the total amount of debt (in USD) that is owed by the different countries. This will give us a sense of how the overall economy of the entire world is holding up.
+
+Task 4: Instructions
+Find out the total amount of debt as reflected in the table.
+
+Use the built-in SUM function on the debt column, then divide it by 1000000 and round the result to 2 decimal places so that the output is fathomable.
+Alias the resulting column as total_debt.
+
 
 
