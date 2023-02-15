@@ -18,3 +18,25 @@ Your search will involve joining datasets and comparing results with set theory.
 6. Years video game players loved
 7. Years that both players and critics loved
 8. Sales in the best video game years
+
+Video games are big business: the global gaming market is projected to be worth more than $300 billion by 2027 according to Mordor Intelligence. With so much money at stake, the major game publishers are hugely incentivized to create the next big hit. But are games getting better, or has the golden age of video games already passed?
+
+In this project, we'll explore the top 400 best-selling video games created between 1977 and 2020. We'll compare a dataset on game sales with critic and user reviews to determine whether or not video games have improved as the gaming market has grown.
+
+![image](https://user-images.githubusercontent.com/118057504/219178330-59c24e16-815f-4093-ab06-ee863d2d0e9f.png)
+
+
+## 1. The ten best-selling video games
+
+### Task 1: Instructions
+Let's find the ten best-selling video games in game_sales.
+
+ - Select all columns for the top ten best-selling video games (based on games_sold) in game_sales.
+ - Order the results from the best-selling game down to the tenth best-selling game.
+ 
+ ```
+ SELECT *
+FROM game_sales
+ORDER BY games_sold DESC
+LIMIT 10;
+```
