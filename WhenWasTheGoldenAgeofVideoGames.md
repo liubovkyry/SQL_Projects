@@ -47,3 +47,9 @@ LIMIT 10;
 Wow, the best-selling video games were released between 1985 to 2017! That's quite a range; we'll have to use data from the reviews table to gain more insight on the best years for video games.
 
 First, it's important to explore the limitations of our database. One big shortcoming is that there is not any reviews data for some of the games on the game_sales table.
+
+### Task 2: Instructions
+Let's determine how many games in the game_sales table are missing both a user_score and a critic_score.
+
+ - Join the game_sales and reviews tables together so that all games from the game_sales table are listed in the results, whether or not they have associated reviews.
+ - Select the count of games where both the associated critic_score and the associated user_score are null.
