@@ -40,3 +40,10 @@ FROM game_sales
 ORDER BY games_sold DESC
 LIMIT 10;
 ```
+
+![image](https://user-images.githubusercontent.com/118057504/219179234-783f8b8b-8162-4700-9e4d-a25149c05cf6.png)
+
+## 2. Missing review scores
+Wow, the best-selling video games were released between 1985 to 2017! That's quite a range; we'll have to use data from the reviews table to gain more insight on the best years for video games.
+
+First, it's important to explore the limitations of our database. One big shortcoming is that there is not any reviews data for some of the games on the game_sales table.
