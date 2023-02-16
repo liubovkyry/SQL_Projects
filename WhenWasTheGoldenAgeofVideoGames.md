@@ -53,3 +53,13 @@ Let's determine how many games in the game_sales table are missing both a user_s
 
  - Join the game_sales and reviews tables together so that all games from the game_sales table are listed in the results, whether or not they have associated reviews.
  - Select the count of games where both the associated critic_score and the associated user_score are null.
+
+```
+SELECT COUNT(game)
+FROM game_sales
+FULL JOIN reviews
+USING(game)
+WHERE critic_score IS NULL and user_score IS NULL;
+```
+![image](https://user-images.githubusercontent.com/118057504/219420581-838d98f3-3b50-4956-acb5-d9a27405d59f.png)
+
