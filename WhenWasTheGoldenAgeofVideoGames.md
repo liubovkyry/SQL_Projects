@@ -89,5 +89,50 @@ LIMIT 10;
 ```
 ![image](https://user-images.githubusercontent.com/118057504/219422604-cf1a9903-3fe6-4bf1-8dbf-76765c9e14e8.png)
 
+## 4. Was 1982 really that great?
+The range of great years according to critic reviews goes from 1982 until 2020: we are no closer to finding the golden age of video games!
+
+Hang on, though. Some of those avg_critic_score values look like suspiciously round numbers for averages. The value for 1982 looks especially fishy. Maybe there weren't a lot of video games in our dataset that were released in certain years.
+
+Let's update our query and find out whether 1982 really was such a great year for video games.
+
+### Task 4: Instructions
+Find game critics' ten favorite years, this time with the stipulation that a year must have more than four games released in order to be considered.
+
+ - Starting with your query from the previous task, update it so that the selected data additionally includes a count of games released in a given year, and alias this count as num_games.
+ - Filter your query so that only years with more than four games released are returned.
+
+<i>NOTE:
+Use HAVING instead of WHERE to filter based on the results of aggregating functions such as AVG() or COUNT().
+
+You'll need to use HAVING COUNT(g.game) > 4 rather than HAVING num_games > 4 because a column alias cannot be used in the same level where you've defined it.</i>
+
+```
+SELECT 
+year,
+ROUND(AVG(critic_score),2) AS avg_critic_score,
+COUNT(game) AS num_games
+FROM game_sales
+INNER JOIN reviews
+USING(game) 
+GROUP BY year
+HAVING COUNT(game) > 4
+ORDER BY avg_critic_score DESC
+LIMIT 10;
+```
+![image](https://user-images.githubusercontent.com/118057504/219426410-d395bb0f-2cf8-43d4-90d2-dd6dffd7d915.png)
+
+## 5. Years that dropped off the critics' favorites list
+That looks better! The num_games column convinces us that our new list of the critics' top games reflects years that had quite a few well-reviewed games rather than just one or two hits. But which years dropped off the list due to having four or fewer reviewed games? Let's identify them so that someday we can track down more game reviews for those years and determine whether they might rightfully be considered as excellent years for video game releases!
+
+It's time to brush off your set theory skills. To get started, we've created tables with the results of our previous two queries:
+
+### Task 5: Instructions
+Use set theory to find the years that were on our first critics' favorite list but not the second.
+
+ - Select the year and avg_critic_score for those years that were on our first critics' favorite list but not the second due to having four or fewer reviewed games.
+ - Order the results from highest to lowest avg_critic_score.
+ - 
+![image](https://user-images.githubusercontent.com/118057504/219426796-d3f15ef8-eb5d-4172-a02d-59cdf4a0a0fb.png)
 
 
