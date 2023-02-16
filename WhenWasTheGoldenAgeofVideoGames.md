@@ -63,3 +63,17 @@ WHERE critic_score IS NULL and user_score IS NULL;
 ```
 ![image](https://user-images.githubusercontent.com/118057504/219420581-838d98f3-3b50-4956-acb5-d9a27405d59f.png)
 
+## 3. Years that video game critics loved
+It looks like a little less than ten percent of the games on the game_sales table don't have any reviews data. That's a small enough percentage that we can continue our exploration, but the missing reviews data is a good thing to keep in mind as we move on to evaluating results from more sophisticated queries.
+
+There are lots of ways to measure the best years for video games! Let's start with what the critics think.
+
+### Task 3: Instructions
+Find the years with the highest average critic_score.
+
+ - Select release year and average critic score for each year; average critic score for each year will be rounded to two decimal places and aliased as avg_critic_score.
+ - Join the game_sales and reviews tables so that only games which appear on both tables are represented.
+ - Group the data by release year.
+ - Order the data from highest to lowest avg_critic_score and limit the results to the top ten years.
+
+
