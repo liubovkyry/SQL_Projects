@@ -135,4 +135,54 @@ Use set theory to find the years that were on our first critics' favorite list b
  - 
 ![image](https://user-images.githubusercontent.com/118057504/219426796-d3f15ef8-eb5d-4172-a02d-59cdf4a0a0fb.png)
 
+```
+SELECT 
+year,
+avg_critic_score
+FROM top_critic_years
+EXCEPT
+SELECT
+year,
+avg_critic_score
+FROM top_critic_years_more_than_four_games;
+```
+![image](https://user-images.githubusercontent.com/118057504/219451284-c1c32e1a-5112-4526-8f6f-6516ba9323b2.png)
+
+## 6. Years video game players loved
+Based on our work in the task above, it looks like the early 1990s might merit consideration as the golden age of video games based on critic_score alone, but we'd need to gather more games and reviews data to do further analysis.
+
+Let's move on to looking at the opinions of another important group of people: players! To begin, let's create a query very similar to the one we used in Task Four, except this one will look at user_score averages by year rather than critic_score averages.
+
+### Task 6: Instructions
+Update your query from Task Four so that it returns years with ten highest avg_user_score values.
+
+ - You'll still select year and an average of user_score for each year, rounded to two decimal places and aliased as avg_user_score; also include a count of games released in a given year, aliased as num_games.
+ - Include only years with more than four reviewed games; group the data by year.
+ - Order data from highest to lowest avg_user_score, and limit the results to the top ten years.
+ 
+ ```
+ SELECT year, 
+AVG(user_score) AS avg_user_score,
+ROUND(COUNT(game),2) AS num_games
+FROM game_sales
+INNER JOIN reviews
+USING(game) 
+GROUP BY year
+HAVING COUNT(game) > 4
+ORDER BY avg_user_score DESC
+LIMIT 10;
+```
+![image](https://user-images.githubusercontent.com/118057504/219452793-45a3776c-73fa-4ec3-a598-417b5d9146c1.png)
+
+## 7. Years that both players and critics loved
+Alright, we've got a list of the top ten years according to both critic reviews and user reviews. Are there any years that showed up on both tables? If so, those years would certainly be excellent ones!
+
+Recall that we have access to the top_critic_years_more_than_four_games table, which stores the results of our top critic years query from Task 4:
+![image](https://user-images.githubusercontent.com/118057504/219452972-90c0027d-35a1-4369-bc8f-5dde33baf8bc.png)
+
+### Task 7: Instructions
+Create a list of years that appear on both the top_critic_years_more_than_four_games table and the top_user_years_more_than_four_games table.
+
+ - Using set theory, select only the year results that appear on both tables.
+
 
