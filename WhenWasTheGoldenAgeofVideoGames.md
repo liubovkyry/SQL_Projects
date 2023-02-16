@@ -76,4 +76,18 @@ Find the years with the highest average critic_score.
  - Group the data by release year.
  - Order the data from highest to lowest avg_critic_score and limit the results to the top ten years.
 
+```
+SELECT 
+year,
+ROUND(AVG(critic_score),2) AS avg_critic_score
+FROM game_sales
+INNER JOIN reviews
+USING(game)
+GROUP BY year
+ORDER BY avg_critic_score DESC
+LIMIT 10;
+```
+![image](https://user-images.githubusercontent.com/118057504/219422604-cf1a9903-3fe6-4bf1-8dbf-76765c9e14e8.png)
+
+
 
