@@ -185,4 +185,37 @@ Create a list of years that appear on both the top_critic_years_more_than_four_g
 
  - Using set theory, select only the year results that appear on both tables.
 
+```
+SELECT year
+FROM top_critic_years_more_than_four_games
+INTERSECT
+SELECT year
+FROM top_user_years_more_than_four_games;
+```
+![image](https://user-images.githubusercontent.com/118057504/219454524-5d8af487-b1ab-4d3c-8d6f-92967ce0dabb.png)
+
+## 8. Sales in the best video game years
+Looks like we've got three years that both users and critics agreed were in the top ten! There are many other ways of measuring what the best years for video games are, but let's stick with these years for now. We know that critics and players liked these years, but what about video game makers? Were sales good? Let's find out.
+We'll use the query from the previous task as a subquery in this one!
+
+### Task 8: Instructions
+Add a column showing total games_sold in each year to the table you created in the previous task.
+
+ - Select year and the sum of games_sold, aliased as total_games_sold; order your results by total_games_sold descending.
+ - Filter the game_sales table based on whether the year is in the list of years you returned in the previous task, using your code from the previous task as a subquery.
+ - Group the results by year.
+
+```
+SELECT year, SUM(games_sold) AS total_games_sold
+FROM game_sales
+WHERE year IN(SELECT year
+FROM top_critic_years_more_than_four_games
+INTERSECT
+SELECT year
+FROM top_user_years_more_than_four_games)
+GROUP BY year
+ORDER BY total_games_sold DESC;
+```
+![image](https://user-images.githubusercontent.com/118057504/219455998-1dd3acb1-c1f3-4099-8bd8-c20f2dc176e7.png)
+
 
