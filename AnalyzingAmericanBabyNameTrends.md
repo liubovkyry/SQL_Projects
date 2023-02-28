@@ -95,10 +95,95 @@ ORDER BY SUM(num) DESC;
 ![image](https://user-images.githubusercontent.com/118057504/221830169-3a181f29-f322-41e5-83fb-db98b82f359d.png)
 
 ## 5. The Olivia expansion
-###
+Based on the results in the previous task, we can see that Olivia is the most popular female name ending in 'A' since 2015. When did the name Olivia become so popular?
+
+Let's explore the rise of the name Olivia with the help of a window function.
+### Task 5: Instructions
+Find the cumulative number of babies named Olivia over the years since the name first appeared in our dataset.
+
+ - Select year, first_name, num of Olivias in that year, and cumulative_olivias.
+ - Using a window function, sum the cumulative number of babies who have ever been named Olivia up to that year; alias as cumulative_olivias.
+ - Filter the results so that only data for the name Olivia is returned.
+ - Order the results by year from the earliest year Olivia appeared in the dataset to the most recent.
+
+```
+SELECT year, first_name,
+num,
+SUM(num) OVER(ORDER BY year ASC) AS cumulative_olivias
+FROM baby_names
+WHERE first_name = 'Olivia'
+GROUP BY year, first_name, num
+ORDER BY year;
+```
+![image](https://user-images.githubusercontent.com/118057504/221830623-f1bc78e5-fc94-42b1-882b-167df1005306.png)
+
 ## 6. Many males with the same name
-###
+Wow, Olivia has had a meteoric rise! Let's take a look at traditionally male names now. We saw in the first task that there are nine traditionally male names given to at least 5,000 babies every single year in our 101-year dataset! Those names are classics, but showing up in the dataset every year doesn't necessarily mean that the timeless names were the most popular. Let's explore popular male names a little further.
+
+In the next two tasks, we will build up to listing every year along with the most popular male name in that year. This presents a common problem: how do we find the greatest X in a group? Or, in the context of this problem, how do we find the male name given to the highest number of babies in a year?
+
+In SQL, one approach is to use a subquery. We can first write a query that selects the year and the maximum num of babies given any single male name in that year. For example, in 1989, the male name given to the highest number of babies was given to 65,339 babies. We'll write this query in this task. In the next task, we can use the code from this task as a subquery to look up the first_name that was given to 65,339 babies in 1989… as well as the top male first name for all other years!
+### Task 6: Instructions
+Write a query that selects the year and the maximum num of babies given any male name in that year.
+
+ - Select the year and the maximum num of babies given any one male name in that year; alias the maximum as max_num.
+ - Filter the data to include only results where sex equals 'M'.
+
+```
+SELECT year, MAX(num) AS max_num
+FROM baby_names
+WHERE sex = 'M'
+GROUP BY year;
+```
+![image](https://user-images.githubusercontent.com/118057504/221830999-b03440b7-0ee5-4bcb-86bc-e0d0cd0b5370.png)
+
 ## 7. Top male names over the years
-###
+In the previous task, we found the maximum number of babies given any one male name in each year. Incredibly, the most popular name each year varied from being given to less than 20,000 babies to being given to more than 90,000!
+
+In this task, we find out what that top male name is for each year in our dataset.
+### Task 7: Instructions
+Using the previous task's code as a subquery, look up the first_name that corresponds to the maximum number of babies given a specific male name in a year.
+
+ - Select year, the first_name given to the largest number of male babies, and num of babies given the first_name that year.
+ - Join baby_names to the code in the last task as a subquery, using whatever alias you like and joining on both columns in the subquery (Use an INNER JOIN so that only the first_name given to listed number of babies is returned for each year.
+
+).
+ - Order the results by year, starting with the most recent year.
+
+```
+SELECT b.year, first_name, num
+FROM baby_names AS b
+INNER JOIN(SELECT year, MAX(num) AS max_num
+FROM baby_names
+WHERE sex = 'M'
+GROUP BY year) AS sub
+ON b.year = sub.year AND b.num = sub.max_num
+ORDER BY year DESC;
+```
+![image](https://user-images.githubusercontent.com/118057504/221832334-592645fc-d993-4a8a-9ad8-906388c98821.png)
+
 ## 8. The most years at number one
-###
+Noah and Liam have ruled the roost in the last few years, but if we scroll down in the results, it looks like Michael and Jacob have also spent a good number of years as the top name! Which name has been number one for the largest number of years? Let's use a common table expression to find out.
+### Task 8: Instructions
+Return a list of first names that have been the top male first name in any year along with a count of the number of years that name has been the top name.
+
+ - Select first_name and a count of the number of years that the first_name appeared as a year's top name in the last task; alias this count as count_top_name.
+ - To do this, use the code from the previous task as a common table expression.
+ - Group by first_name and order the results from the name with the most years at the top to the name with the fewest.
+
+```
+WITH cte AS(SELECT b.year, first_name, num
+FROM baby_names AS b
+INNER JOIN(SELECT year, MAX(num) AS max_num
+FROM baby_names
+WHERE sex = 'M'
+GROUP BY year) AS sub
+ON b.year = sub.year AND b.num = sub.max_num
+ORDER BY year DESC)
+SELECT first_name, COUNT(year) AS count_top_name
+FROM cte
+GROUP BY first_name
+ORDER BY count_top_name DESC;
+```
+![image](https://user-images.githubusercontent.com/118057504/221832234-1defbf90-f7f7-4305-b7be-4d2aaa9d3d65.png)
+
