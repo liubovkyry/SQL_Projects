@@ -145,9 +145,7 @@ In this task, we find out what that top male name is for each year in our datase
 Using the previous task's code as a subquery, look up the first_name that corresponds to the maximum number of babies given a specific male name in a year.
 
  - Select year, the first_name given to the largest number of male babies, and num of babies given the first_name that year.
- - Join baby_names to the code in the last task as a subquery, using whatever alias you like and joining on both columns in the subquery (Use an INNER JOIN so that only the first_name given to listed number of babies is returned for each year.
-
-).
+ - Join baby_names to the code in the last task as a subquery, using whatever alias you like and joining on both columns in the subquery (Use an INNER JOIN so that only the first_name given to listed number of babies is returned for each year).
  - Order the results by year, starting with the most recent year.
 
 ```
