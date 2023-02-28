@@ -48,9 +48,52 @@ ORDER BY first_name;
 ![image](https://user-images.githubusercontent.com/118057504/221829151-dc91af27-a8b5-4552-aaec-b499c80f41ad.png)
 
 ## 3. Top-ranked female names since 1920
-###
+Did you find your favorite American celebrity's name on the popularity chart? Was it classic or trendy? How do you think the name Henry did? What about Jaxon?
+
+Since we didn't get many traditionally female names in our classic American names search in the first task, let's limit our search to names which were given to female babies.
+
+We can use this opportunity to practice window functions by assigning a rank to female names based on the number of babies that have ever been given that name. What are the top-ranked female names since 1920?
+### Task 3: Instructions
+Let's take a look at the ten highest-ranked American female names in our dataset.
+
+ - Select name_rank, first_name, and the sum of babies who've ever had that name.
+ - RANK the first_name by the sum of babies who've ever had that name, aliasing as name_rank and showing the names in descending order by name_rank.
+ - Filter the data to include only results where sex equals 'F'.
+ - Limit to ten results.
+
+```
+SELECT RANK() OVER(ORDER BY SUM(num) DESC) AS name_rank,
+first_name,
+SUM(num)
+FROM baby_names
+WHERE sex = 'F'
+GROUP BY first_name
+LIMIT 10;
+```
+![image](https://user-images.githubusercontent.com/118057504/221829855-6c9b374e-778a-45af-92d4-1e88ff95df05.png)
+
 ## 4. Picking a baby name
-###
+Perhaps a friend has heard of our work analyzing baby names and would like help choosing a name for her baby, a girl. She doesn't like any of the top-ranked names we found in the previous task.
+
+She's set on a traditionally female name ending in the letter 'a' since she's heard that vowels in baby names are trendy. She's also looking for a name that has been popular in the years since 2015.
+
+Let's see what we can do to find some options for this friend!
+### Task 4: Instructions
+Return a list of first names which meet this friend's baby name criteria.
+
+ - Select only the first_name column.
+ - Filter the data for results where sex equals 'F', the year is greater than 2015, and the first_name ends in an 'a.'
+ - Group the data by first_name and order by the total number of babies ever given that first_name, descending.
+
+```
+SELECT first_name
+FROM baby_names
+WHERE sex = 'F' AND year > 2015 AND first_name LIKE '%a'
+GROUP BY first_name
+ORDER BY SUM(num) DESC;
+```
+![image](https://user-images.githubusercontent.com/118057504/221830169-3a181f29-f322-41e5-83fb-db98b82f359d.png)
+
 ## 5. The Olivia expansion
 ###
 ## 6. Many males with the same name
