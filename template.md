@@ -1,4 +1,7 @@
+```
 create schema new_project
+```
+```
 
 drop TABLE YELP_BUSINESSES
 
@@ -18,3 +21,4 @@ create TABLE YELP_BUSINESSES
     categories varchar(100),
     hours json,
     constraint pk_business_id primary key (business_id));
+```
